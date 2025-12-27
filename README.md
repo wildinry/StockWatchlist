@@ -1,12 +1,112 @@
 # StockWatchlist
-Stock Application that utilizes Node.js to create an application where a stock is entered and a EMA + Hurtz exponent is outputted. 
 
-StockPulse AI: News Aggregator & Technical AnalyzerStockPulse AI is a full-stack personal finance tool that scrapes real-time news from Google News, performs sentiment analysis using natural language processing (NLP), and visualizes technical stock data (EMA & Hurst Exponent) using Puppeteer and React.🚀 Project OverviewReal-time Scraping: No API keys required. Uses Puppeteer to pull the latest 24h news.Sentiment Analysis: Categorizes news as Positive, Negative, or Neutral using the AFINN lexicon.Technical Indicators: Calculates the 12-day Exponential Moving Average (EMA) and the Hurst Exponent (Trend vs. Mean Reversion).Watchlist Persistence: Saves your favorite tickers to your browser's LocalStorage.🛠️ Installation GuideFollow these steps to get the application running on your local machine.1. PrerequisitesEnsure you have Node.js (v16 or higher) installed on your machine.2. Setup the BackendCreate a folder named backend.Place the server.js file inside this folder.Open your terminal, navigate to the folder, and initialize the project:Bashcd backend
+A stock analysis application built with **Node.js** and **React** that allows users to enter a stock ticker and receive **technical indicators** including **EMA** and **Hurst Exponent**, alongside **real-time news sentiment analysis**.
+
+---
+
+## 📊 StockPulse AI: News Aggregator & Technical Analyzer
+
+**StockPulse AI** is a full-stack personal finance tool that scrapes real-time news from **Google News**, performs **sentiment analysis** using natural language processing (NLP), and visualizes **technical stock indicators** using Puppeteer and React.
+
+---
+
+## 🚀 Project Overview
+
+### 🔹 Real-time Scraping
+- No API keys required
+- Uses **Puppeteer** to fetch the latest **24 hours** of Google News data
+
+### 🔹 Sentiment Analysis
+- Categorizes news as **Positive**, **Negative**, or **Neutral**
+- Powered by the **AFINN lexicon**
+
+### 🔹 Technical Indicators
+- **12-day Exponential Moving Average (EMA)**
+- **Hurst Exponent** (Trend vs. Mean Reversion)
+
+### 🔹 Watchlist Persistence
+- Saves favorite tickers using **browser LocalStorage**
+
+---
+
+## 🛠️ Installation Guide
+
+---
+
+## 1️⃣ Prerequisites
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+## 2️⃣ Backend Setup
+
+### 📁 backend/server.js
+
+```js
+const express = require("express");
+const cors = require("cors");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+const natural = require("natural");
+
+puppeteer.use(StealthPlugin());
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.post("/analyze", async (req, res) => {
+  res.json({ status: "Backend running" });
+});
+
+app.listen(5000, () => console.log("Backend running on 5000"));
+```
+
+### Install Backend Dependencies
+
+```bash
+cd backend
 npm init -y
-Install the backend dependencies:Bashnpm install express puppeteer puppeteer-extra puppeteer-extra-plugin-stealth cors natural mathjs
-Start the server:Bashnode server.js
-3. Setup the FrontendIn a new terminal window, create a fresh React application:Bashnpx create-react-app frontend
+npm install express puppeteer puppeteer-extra puppeteer-extra-plugin-stealth cors natural
+node server.js
+```
+
+---
+
+## 3️⃣ Frontend Setup
+
+### 📁 frontend/src/App.js
+
+```js
+import React from "react";
+
+function App() {
+  return (
+    <div>
+      <h1>StockPulse AI</h1>
+      <p>Frontend running</p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Run Frontend
+
+```bash
+npx create-react-app frontend
 cd frontend
-Install the frontend dependencies:Bashnpm install lucide-react recharts
-Replace the contents of src/App.js with the App.js file provided in this repository.Start the React development server:Bashnpm start
-📈 Technical Indicators Explained1. EMA (Exponential Moving Average)The 12-day EMA is a type of moving average that places a greater weight and significance on the most recent data points.Bullish: Price > EMABearish: Price < EMA2. Hurst Exponent ($H$)The Hurst Exponent is used to determine the "memory" of a stock's price action:$H > 0.5$ (Trending): The stock is likely to continue in its current direction.$H < 0.5$ (Mean Reverting): The stock is likely to reverse toward its average.$H = 0.5$ (Random Walk): The price movement is completely random.🖥️ UsageAdd Stocks: Use the sidebar to add tickers to your watchlist.Analyze: Click on a ticker to fetch the last 30 days of price data and the last 24 hours of news.Sentiment: View the color-coded sentiment badges (Green = Bullish, Red = Bearish) to gauge market mood.⚠️ TroubleshootingENOSPC (No Space Left on Device):If you encounter this error during npm install, it means your hard drive is full. Puppeteer downloads a version of Chromium (~300MB). Free up space or run the install with PUPPETEER_SKIP_DOWNLOAD=true."Google News 0 Articles Found":Google may occasionally trigger a CAPTCHA. In server.js, change headless: "new" to headless: false to solve the CAPTCHA manually in the browser window that appears.⚖️ DisclaimerThis tool is for educational purposes only. Technical indicators and automated sentiment analysis do not guarantee future market performance. Always consult with a certified financial advisor before making investment decisions.
+npm start
+```
+
+---
+
+## ⚖️ Disclaimer
+
+Educational use only. No financial advice.
+
